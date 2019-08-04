@@ -1,0 +1,43 @@
+{
+ "name": "tiny-pixel/acorn-spectacle",
+ "type": "package",
+ "license": "MIT",
+ "description": "Social networking support for Acorn projects",
+ "authors": [
+  {
+   "name": "Kelly Mears",
+   "email": "kelly@tinypixel.dev"
+  }
+ ],
+ "keywords": [
+  "wordpress",
+  "acorn",
+  "sage",
+  "facebook",
+  "instagram",
+  "twitter"
+ ],
+ "support": {
+  "issues": "https://github.com/pixelcollective/acorn-spectacle/issues"
+ },
+ "autoload": {
+  "psr-4": {
+   "TinyPixel\\Acorn\\Spectacle\\": "src/"
+  }
+ },
+ "require": {
+  "php": ">=7.3",
+  "guzzlehttp/guzzle": "^6.3",
+  "laravel/socialite": "^4.1",
+  "socialiteproviders/instagram": "^3.0"
+ },
+ "extra": {
+  "acorn": {
+   "providers": [
+    "TinyPixel\\Acorn\\Spectacle\\Providers\\SocialiteServiceProvider",
+    "TinyPixel\\Acorn\\Spectacle\\Providers\\SocialiteManagerServiceProvider",
+    "TinyPixel\\Acorn\\Spectacle\\Providers\\InstagramServiceProvider"
+   ]
+  }
+ }
+}
