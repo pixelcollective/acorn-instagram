@@ -4,7 +4,7 @@
         "Read more about it at https://getcomposer.org/doc/01-basic-usage.md#installing-dependencies",
         "This file is @generated automatically"
     ],
-    "content-hash": "8bb46d5c625d4b32201112e060b3fef1",
+    "content-hash": "c78471bea8d5025174650cfdc5c7a8ff",
     "packages": [
         {
             "name": "guzzlehttp/guzzle",
@@ -355,15 +355,15 @@
             "authors": [
                 {
                     "name": "Khoa Bui",
+                    "role": "Developer",
                     "email": "khoaofgod@gmail.com",
-                    "homepage": "http://www.phpfastcache.com",
-                    "role": "Developer"
+                    "homepage": "http://www.phpfastcache.com"
                 },
                 {
                     "name": "Georges.L",
+                    "role": "Developer",
                     "email": "contact@geolim4.com",
-                    "homepage": "https://github.com/Geolim4",
-                    "role": "Developer"
+                    "homepage": "https://github.com/Geolim4"
                 }
             ],
             "description": "PHP SSDB Driver for phpFastCache",

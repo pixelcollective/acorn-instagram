@@ -7,11 +7,10 @@ use Illuminate\Support\Collection;
 use Illuminate\Cache\CacheManager as Cache;
 use Roots\Acorn\Application;
 use Roots\Acorn\View\Composer;
-use TinyPixel\Acorn\Glide\GlideImage;
-use InstagramScraper\Instagram as InstagramService;
+use TinyPixel\Acorn\Instagram\Instagram as InstagramService;
 
 /**
- * Class Instagram Composer
+ * Instagram Composer
  *
  * @package TinyPixel\Acorn\Instagram\Composers
  * @author  Kelly Mears <kelly@tinypixel.dev>
@@ -19,11 +18,12 @@ use InstagramScraper\Instagram as InstagramService;
 class InstagramComposer extends Composer
 {
     /** @var string  */
-    protected $account = 'thedreamdefenders';
+    protected static $account;
 
     /** @var Collection */
     protected $collectedHashtags;
 
+    /** @var Cache */
     protected $cache;
 
     /** @var Instagram */
@@ -46,7 +46,6 @@ class InstagramComposer extends Composer
     {
         $this->instagram = $app[InstagramService::class];
         $this->cache = $app[Cache::class]->store('file');
-        $this->glide = $app[GlideImage::class];
     }
 
     /**
@@ -73,9 +72,34 @@ class InstagramComposer extends Composer
     public function account() : Collection
     {
         $account = $this->cache->rememberForever('instagram-profile', function () {
-            return $this->insta->getAccount($this->account);
+            return $this->instagram->getAccount(self::account);
         });
 
+        return $this->templateAccount($account);
+    }
+
+    /**
+     * Instagram media
+     *
+     * @return Collection
+     */
+    public function media() : Collection
+    {
+        $media = $this->cache->rememberForever('instagram.recent', function () {
+            return Collection::make($this->instagram->getMedias(self::account, 6));
+        });
+
+        return $this->templateMedia($media);
+    }
+
+    /**
+     * Process account data.
+     *
+     * @param  Collection $account
+     * @return Collection
+     */
+    public function templateAccount(\InstagramScraper\Model\Account $account) : Collection
+    {
         return Collection::make([
             'username'        => $account->getUsername(),
             'fullname'        => $account->getFullname(),
@@ -86,24 +110,19 @@ class InstagramComposer extends Composer
             'following'       => $account->getFollowsCount(),
             'followedCount'   => $account->getFollowedByCount(),
             'postCount'       => $account->getMediaCount(),
-            // 'recentPosts'     => $this->media($account->getMedias()),
-            // 'lastActive'      => $this->timeSince($account->getTimeModified()),
             'category'        => $account->getBusinessCategoryName(),
         ]);
     }
 
     /**
-     * Instagram media
+     * Process media items.
      *
+     * @param  Collection $media
      * @return Collection
      */
-    public function media()
+    public function templateMedia(Collection $media) : Collection
     {
         $collected = Collection::make();
-
-        $media = $this->cache->rememberForever('instagram.recent', function () {
-            return Collection::make($this->insta->getMedias($this->account, 6));
-        });
 
         $media->each(function ($item) use (& $collected) {
             $collected->push(Collection::make([
