@@ -1,5 +1,5 @@
 {
- "name": "tiny-pixel/acorn-spectacle",
+ "name": "tiny-pixel/acorn-instagram",
  "type": "package",
  "license": "MIT",
  "description": "Social networking support for Acorn projects",
@@ -18,25 +18,22 @@
   "twitter"
  ],
  "support": {
-  "issues": "https://github.com/pixelcollective/acorn-spectacle/issues"
+  "issues": "https://github.com/pixelcollective/acorn-instagram/issues"
  },
  "autoload": {
   "psr-4": {
-   "TinyPixel\\Acorn\\Spectacle\\": "src/"
+   "TinyPixel\\Acorn\\Instagram\\": "src/"
   }
  },
  "require": {
   "php": ">=7.3",
-  "guzzlehttp/guzzle": "^6.3",
-  "laravel/socialite": "^4.1",
-  "socialiteproviders/instagram": "^3.0"
+  "raiym/instagram-php-scraper": "^0.8.34",
+  "guzzlehttp/guzzle": "^6.3"
  },
  "extra": {
   "acorn": {
    "providers": [
-    "TinyPixel\\Acorn\\Spectacle\\Providers\\SocialiteServiceProvider",
-    "TinyPixel\\Acorn\\Spectacle\\Providers\\SocialiteManagerServiceProvider",
-    "TinyPixel\\Acorn\\Spectacle\\Providers\\InstagramServiceProvider"
+    "TinyPixel\\Acorn\\Instagram\\Providers\\InstagramServiceProvider"
    ]
   }
  }
