@@ -8,6 +8,6 @@ class Instagram extends Facade
 {
     protected static function getFacadeAccessor()
     {
-        return 'instagram';
+        return 'instagram.facade';
     }
 }

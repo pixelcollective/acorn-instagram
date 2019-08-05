@@ -3,6 +3,7 @@
 namespace TinyPixel\Acorn\Instagram\Providers;
 
 use InstagramScraper\Instagram;
+use Roots\Acorn\Application;
 use Roots\Acorn\ServiceProvider;
 
 class InstagramServiceProvider extends ServiceProvider
@@ -15,11 +16,12 @@ class InstagramServiceProvider extends ServiceProvider
     public function register()
     {
         $this->app->singleton('instagram', function () {
-            return Instagram::class;
+            return new Instagram();
         });
 
         $this->app->singleton('instagram.global', function () {
             $settings = $this->app['config']->get('services.instagram.system');
+
             $instagram = Instagram::withCredentials(
                 $settings['global']['username'],
                 $settings['global']['password'],
@@ -29,7 +31,9 @@ class InstagramServiceProvider extends ServiceProvider
             return $instagram->login();
         });
 
-        $this->app->alias('instagram', Instagram::class);
+        $this->app->bind('instagram.facade', function (Application $app) {
+            return $app->make('instagram');
+        });
     }
 
     /**
@@ -39,6 +43,5 @@ class InstagramServiceProvider extends ServiceProvider
      */
     public function boot()
     {
-        $this->app->make('instagram');
     }
 }
