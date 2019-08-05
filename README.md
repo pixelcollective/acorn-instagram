@@ -1,6 +1,6 @@
 ## Acorn Instagram
 
-Work with the Instagram API. A svelte wrapper for [`postaddictme/instagram-php-scraper`](https://github.com/postaddictme/instagram-php-scraper/blob/master/examples/getSidecarMediaByUrl.php) with Acorn goodies like prebuilt View Composers and Facades.
+Easily work with the Instagram API in WordPress. No more than a svelte wrapper for [`postaddictme/instagram-php-scraper`](https://github.com/postaddictme/instagram-php-scraper/blob/master/examples/getSidecarMediaByUrl.php) with Acorn goodies like prebuilt View Composers and Facades. No authentication required for most tasks.
 
 ## Requirements
 
@@ -35,5 +35,3 @@ wp acorn vendor:publish
 ```
 
 Made with ❤ for [the Dream Defenders](http://dreamdefenders.org).
-
-
