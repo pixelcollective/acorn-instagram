@@ -1,13 +1,13 @@
 <?php
 
-namespace TinyPixel\Acorn\Instagram\Composers;
+namespace TinyPixel\AcornInstagram\Composers;
 
 use Carbon\Carbon;
 use Illuminate\Support\Collection;
 use Illuminate\Cache\CacheManager as Cache;
 use Roots\Acorn\Application;
 use Roots\Acorn\View\Composer;
-use TinyPixel\Acorn\Instagram\Instagram as InstagramService;
+use TinyPixel\AcornInstagram\Instagram as InstagramService;
 
 /**
  * Instagram Composer

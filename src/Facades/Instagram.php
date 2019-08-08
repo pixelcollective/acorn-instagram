@@ -1,6 +1,6 @@
 <?php
 
-namespace TinyPixel\Acorn\Instagram\Facades;
+namespace TinyPixel\AcornInstagram\Facades;
 
 use Roots\Acorn\Facade;
 

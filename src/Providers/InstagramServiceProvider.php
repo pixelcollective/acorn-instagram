@@ -1,12 +1,11 @@
 <?php
 
-namespace TinyPixel\Acorn\Instagram\Providers;
+namespace TinyPixel\AcornInstagram\Providers;
 
-use function Roots\base_path;
 use Roots\Acorn\Application;
 use Roots\Acorn\ServiceProvider;
 use Illuminate\Support\Collection;
-use TinyPixel\Acorn\Instagram\Instagram;
+use TinyPixel\AcornInstagram\Instagram;
 
 class InstagramServiceProvider extends ServiceProvider
 {
@@ -27,7 +26,6 @@ class InstagramServiceProvider extends ServiceProvider
             $instagram = Instagram::withCredentials(
                 $settings['global']['username'],
                 $settings['global']['password'],
-                get_theme_file_path('storage/framework/cache')
             );
 
             return $instagram->login();

@@ -20,7 +20,7 @@
  },
  "autoload": {
   "psr-4": {
-   "TinyPixel\\Acorn\\Instagram\\": "src/"
+   "TinyPixel\\AcornInstagram\\": "src/"
   }
  },
  "require": {
@@ -31,7 +31,7 @@
  "extra": {
   "acorn": {
    "providers": [
-    "TinyPixel\\Acorn\\Instagram\\Providers\\InstagramServiceProvider"
+    "TinyPixel\\AcornInstagram\\Providers\\InstagramServiceProvider"
    ]
   }
  }

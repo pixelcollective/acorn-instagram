@@ -1,25 +1,31 @@
 <?php
 
-namespace TinyPixel\Acorn\Instagram;
+namespace TinyPixel\AcornInstagram;
 
 use InstagramScraper\Instagram as InstagramBase;
-use Illuminate\Cache\CacheManager;
+use Illuminate\Cache\Repository;
 
 class Instagram extends InstagramBase
 {
-    /** @var Illuminate\Cache\CacheManager */
+    /**
+     * Acorn cache
+     *
+     * @var Repository $acornCache
+     */
     protected static $acornCache;
 
     /**
-     * @param string $username
-     * @param string $password
-     * @param null $sessionFolder
+     * Access Instagram with authentication
+     *
+     * @param string     $username
+     * @param string     $password
+     * @param string     $dir
      *
      * @return Instagram
      */
-    public static function withCredentials($username, $password, $sessionFolder = null)
+    public static function withCredentials($username, $password, $sessionFolder = NULL)
     {
-        static::$instanceCache = CacheManager::getInstance('files');
+        static::$instanceCache = Repository::getInstance();
 
         $instance = new self();
 

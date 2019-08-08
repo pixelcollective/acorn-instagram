@@ -2,7 +2,7 @@
 
 namespace App\Composers;
 
-use TinyPixel\Acorn\Instagram\Composers\InstagramComposer;
+use TinyPixel\AcornInstagram\Composers\InstagramComposer;
 
 /**
  * Instagram Composer
