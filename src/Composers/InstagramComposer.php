@@ -4,9 +4,9 @@ namespace TinyPixel\AcornInstagram\Composers;
 
 use Carbon\Carbon;
 use Illuminate\Support\Collection;
-use Illuminate\Cache\CacheManager as Cache;
 use Roots\Acorn\Application;
 use Roots\Acorn\View\Composer;
+use InstagramScraper\Model\Account;
 use TinyPixel\AcornInstagram\Instagram as InstagramService;
 
 /**
@@ -15,20 +15,8 @@ use TinyPixel\AcornInstagram\Instagram as InstagramService;
  * @package TinyPixel\Acorn\Instagram\Composers
  * @author  Kelly Mears <kelly@tinypixel.dev>
  */
-class InstagramComposer extends Composer
+abstract class InstagramComposer extends Composer
 {
-    /** @var string  */
-    protected static $account;
-
-    /** @var Collection */
-    protected $collectedHashtags;
-
-    /** @var Cache */
-    protected $cache;
-
-    /** @var Instagram */
-    protected $instagram;
-
     /**
      * List of views served by this composer.
      *
@@ -45,7 +33,6 @@ class InstagramComposer extends Composer
     public function __construct(Application $app)
     {
         $this->instagram = $app[InstagramService::class];
-        $this->cache = $app[Cache::class]->store('file');
     }
 
     /**
@@ -55,7 +42,7 @@ class InstagramComposer extends Composer
      * @param  View $view
      * @return array
      */
-    public function with($data, $view)
+    public function with()
     {
         return [
             'profile'  => (object) $this->account()->toArray(),
@@ -71,9 +58,7 @@ class InstagramComposer extends Composer
      */
     public function account() : Collection
     {
-        $account = $this->cache->rememberForever('instagram-profile', function () {
-            return $this->instagram->getAccount(self::account);
-        });
+        $account = $this->instagram->getAccount($this->account);
 
         return $this->templateAccount($account);
     }
@@ -85,9 +70,7 @@ class InstagramComposer extends Composer
      */
     public function media() : Collection
     {
-        $media = $this->cache->rememberForever('instagram.recent', function () {
-            return Collection::make($this->instagram->getMedias(self::account, 6));
-        });
+        $media = Collection::make($this->instagram->getMedias($this->account, $this->count));
 
         return $this->templateMedia($media);
     }
@@ -98,7 +81,7 @@ class InstagramComposer extends Composer
      * @param  Collection $account
      * @return Collection
      */
-    public function templateAccount(\InstagramScraper\Model\Account $account) : Collection
+    public function templateAccount(Account $account) : Collection
     {
         return Collection::make([
             'username'        => $account->getUsername(),
