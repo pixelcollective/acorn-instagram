@@ -8,44 +8,46 @@
     "packages": [
         {
             "name": "guzzlehttp/guzzle",
-            "version": "6.3.3",
+            "version": "6.5.2",
             "source": {
                 "type": "git",
                 "url": "https://github.com/guzzle/guzzle.git",
-                "reference": "407b0cb880ace85c9b63c5f9551db498cb2d50ba"
+                "reference": "43ece0e75098b7ecd8d13918293029e555a50f82"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/guzzle/guzzle/zipball/407b0cb880ace85c9b63c5f9551db498cb2d50ba",
-                "reference": "407b0cb880ace85c9b63c5f9551db498cb2d50ba",
+                "url": "https://api.github.com/repos/guzzle/guzzle/zipball/43ece0e75098b7ecd8d13918293029e555a50f82",
+                "reference": "43ece0e75098b7ecd8d13918293029e555a50f82",
                 "shasum": ""
             },
             "require": {
+                "ext-json": "*",
                 "guzzlehttp/promises": "^1.0",
-                "guzzlehttp/psr7": "^1.4",
+                "guzzlehttp/psr7": "^1.6.1",
                 "php": ">=5.5"
             },
             "require-dev": {
                 "ext-curl": "*",
                 "phpunit/phpunit": "^4.8.35 || ^5.7 || ^6.4 || ^7.0",
-                "psr/log": "^1.0"
+                "psr/log": "^1.1"
             },
             "suggest": {
+                "ext-intl": "Required for Internationalized Domain Name (IDN) support",
                 "psr/log": "Required for using the Log middleware"
             },
             "type": "library",
             "extra": {
                 "branch-alias": {
-                    "dev-master": "6.3-dev"
+                    "dev-master": "6.5-dev"
                 }
             },
             "autoload": {
-                "files": [
-                    "src/functions_include.php"
-                ],
                 "psr-4": {
                     "GuzzleHttp\\": "src/"
-                }
+                },
+                "files": [
+                    "src/functions_include.php"
+                ]
             },
             "notification-url": "https://packagist.org/downloads/",
             "license": [
@@ -69,7 +71,7 @@
                 "rest",
                 "web service"
             ],
-            "time": "2018-04-22T15:46:56+00:00"
+            "time": "2019-12-23T11:57:10+00:00"
         },
         {
             "name": "guzzlehttp/promises",
@@ -283,15 +285,15 @@
             "authors": [
                 {
                     "name": "Khoa Bui",
-                    "role": "Developer",
                     "email": "khoaofgod@gmail.com",
-                    "homepage": "http://www.phpfastcache.com"
+                    "homepage": "http://www.phpfastcache.com",
+                    "role": "Developer"
                 },
                 {
                     "name": "Georges.L",
-                    "role": "Developer",
                     "email": "contact@geolim4.com",
-                    "homepage": "https://github.com/Geolim4"
+                    "homepage": "https://github.com/Geolim4",
+                    "role": "Developer"
                 }
             ],
             "description": "PHP Cache Class - Reduce your database call using cache system. PhpFastCache handles a lot of drivers such as Apc(u), CouchBase, Mongodb, Files, (P)redis, Leveldb, Memcache(d), Ssdb, Sqlite, Wincache, Xcache, Zend Data Cache.",
@@ -355,15 +357,15 @@
             "authors": [
                 {
                     "name": "Khoa Bui",
-                    "role": "Developer",
                     "email": "khoaofgod@gmail.com",
-                    "homepage": "http://www.phpfastcache.com"
+                    "homepage": "http://www.phpfastcache.com",
+                    "role": "Developer"
                 },
                 {
                     "name": "Georges.L",
-                    "role": "Developer",
                     "email": "contact@geolim4.com",
-                    "homepage": "https://github.com/Geolim4"
+                    "homepage": "https://github.com/Geolim4",
+                    "role": "Developer"
                 }
             ],
             "description": "PHP SSDB Driver for phpFastCache",
@@ -523,16 +525,16 @@
         },
         {
             "name": "raiym/instagram-php-scraper",
-            "version": "v0.8.34",
+            "version": "v0.8.35",
             "source": {
                 "type": "git",
                 "url": "https://github.com/postaddictme/instagram-php-scraper.git",
-                "reference": "ba9d8a9af983f2d3e51a2ed853e4709316491756"
+                "reference": "89ab40759528517a5f2c7824abddd432283ff62a"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/postaddictme/instagram-php-scraper/zipball/ba9d8a9af983f2d3e51a2ed853e4709316491756",
-                "reference": "ba9d8a9af983f2d3e51a2ed853e4709316491756",
+                "url": "https://api.github.com/repos/postaddictme/instagram-php-scraper/zipball/89ab40759528517a5f2c7824abddd432283ff62a",
+                "reference": "89ab40759528517a5f2c7824abddd432283ff62a",
                 "shasum": ""
             },
             "require": {
@@ -567,7 +569,7 @@
                 "instagram",
                 "scraper"
             ],
-            "time": "2019-07-20T12:58:33+00:00"
+            "time": "2019-08-14T10:52:12+00:00"
         },
         {
             "name": "ralouphie/getallheaders",

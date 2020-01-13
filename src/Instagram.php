@@ -23,7 +23,7 @@ class Instagram extends InstagramBase
      *
      * @return Instagram
      */
-    public static function withCredentials($username, $password, $sessionFolder = NULL)
+    public static function withCredentials($username, $password)
     {
         static::$instanceCache = Repository::getInstance();
 
