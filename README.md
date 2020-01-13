@@ -1,4 +1,4 @@
-## AcornInstagram
+## Instagram Acorn View Composer
 
 Compose Sage 10 views using images from [Instagram](https://www.youtube.com/watch?v=oHg5SJYRHA0). No authentication required, but authentication supported.
 
