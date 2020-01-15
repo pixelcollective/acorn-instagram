@@ -1,11 +1,11 @@
 <?php
 
-namespace TinyPixel\AcornInstagram\Providers;
+namespace TinyPixel\Acorn\Instagram\Providers;
 
 use Roots\Acorn\Application;
 use Roots\Acorn\ServiceProvider;
 use Illuminate\Support\Collection;
-use TinyPixel\AcornInstagram\Instagram;
+use TinyPixel\Acorn\Instagram\Instagram;
 
 class InstagramServiceProvider extends ServiceProvider
 {
@@ -43,23 +43,10 @@ class InstagramServiceProvider extends ServiceProvider
      */
     public function boot() : void
     {
-        $this->composers([
-            __DIR__ . '/../../publish/Composers/Instagram.php',
-        ], 'composers');
-    }
-
-    /**
-     * Add publishable composers
-     *
-     * @param  array $source
-     * @return void
-     */
-    public function composers(array $source, $group = null) : void
-    {
-        Collection::make($source)->each(function ($composer) use ($group) {
+        Collection::make([__DIR__ . '/../../publish/Composers/Instagram.php'])->each(function ($composer) use ($group) {
             $this->publishes([
                 $composer => $this->composerPath() . basename($composer)
-            ], isset($group) ? $group : null);
+            ], 'instagram');
         });
     }
 

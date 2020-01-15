@@ -2,7 +2,7 @@
 
 namespace App\Composers;
 
-use TinyPixel\AcornInstagram\Composers\InstagramComposer;
+use TinyPixel\Acorn\Instagram\Composers\InstagramComposer;
 
 /**
  * Instagram Composer
@@ -13,20 +13,11 @@ use TinyPixel\AcornInstagram\Composers\InstagramComposer;
 class Instagram extends InstagramComposer
 {
     /**
-     * Instagram account name.
-     *
-     * @var string
-     **/
-    protected static $account = '';
-
-    /**
      * List of views served by this composer.
      *
      * @var array
      */
-    protected static $views = [
-        'index',
-    ];
+    protected static $views = ['components.page'];
 
     /**
      * Data to be passed to view before rendering.
