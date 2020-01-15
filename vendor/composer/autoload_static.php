@@ -14,20 +14,14 @@ class ComposerStaticInit765ef6dd703cd395fd655d63627300dc
     );
 
     public static $prefixLengthsPsr4 = array (
-        'p' => 
-        array (
-            'phpssdb\\' => 8,
-            'phpFastCache\\' => 13,
-        ),
         'T' => 
         array (
             'TinyPixel\\AcornInstagram\\' => 25,
         ),
         'P' => 
         array (
+            'Psr\\SimpleCache\\' => 16,
             'Psr\\Http\\Message\\' => 17,
-            'Psr\\Cache\\' => 10,
-            'Predis\\' => 7,
         ),
         'I' => 
         array (
@@ -42,29 +36,17 @@ class ComposerStaticInit765ef6dd703cd395fd655d63627300dc
     );
 
     public static $prefixDirsPsr4 = array (
-        'phpssdb\\' => 
-        array (
-            0 => __DIR__ . '/..' . '/phpfastcache/phpssdb/src/phpssdb',
-        ),
-        'phpFastCache\\' => 
-        array (
-            0 => __DIR__ . '/..' . '/phpfastcache/phpfastcache/src/phpFastCache',
-        ),
         'TinyPixel\\AcornInstagram\\' => 
         array (
             0 => __DIR__ . '/../..' . '/src',
         ),
+        'Psr\\SimpleCache\\' => 
+        array (
+            0 => __DIR__ . '/..' . '/psr/simple-cache/src',
+        ),
         'Psr\\Http\\Message\\' => 
         array (
             0 => __DIR__ . '/..' . '/psr/http-message/src',
-        ),
-        'Psr\\Cache\\' => 
-        array (
-            0 => __DIR__ . '/..' . '/psr/cache/src',
-        ),
-        'Predis\\' => 
-        array (
-            0 => __DIR__ . '/..' . '/predis/predis/src',
         ),
         'InstagramScraper\\' => 
         array (

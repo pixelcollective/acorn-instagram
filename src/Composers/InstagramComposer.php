@@ -28,7 +28,7 @@ abstract class InstagramComposer extends Composer
      * Resolves Instagram service.
      * from the application container
      *
-     * @param Application $app
+     * @param \Roots\Acorn\Application $app
      */
     public function __construct(Application $app)
     {
