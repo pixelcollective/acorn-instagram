@@ -1,38 +1,39 @@
 {
- "name": "tiny-pixel/acorn-instagram",
- "type": "package",
- "license": "MIT",
- "description": "Instagram facilitator for savvy WordPress developers",
- "authors": [
-  {
-   "name": "Kelly Mears",
-   "email": "kelly@tinypixel.dev"
+  "name": "tiny-pixel/acorn-instagram",
+  "type": "package",
+  "license": "MIT",
+  "description": "Instagram facilitator for savvy WordPress developers",
+  "authors": [
+    {
+      "name": "Kelly Mears",
+      "email": "kelly@tinypixel.dev"
+    }
+  ],
+  "keywords": [
+    "wordpress",
+    "acorn",
+    "sage",
+    "instagram"
+  ],
+  "support": {
+    "issues": "https://github.com/pixelcollective/acorn-instagram/issues"
+  },
+  "autoload": {
+    "psr-4": {
+      "TinyPixel\\Acorn\\Instagram\\": "./src/"
+    }
+  },
+  "require": {
+    "php": ">=7.3",
+    "guzzlehttp/guzzle": "^6.3",
+    "raiym/instagram-php-scraper": "^0.9.1",
+    "cache/cache": "^1.0"
+  },
+  "extra": {
+    "acorn": {
+      "providers": [
+        "TinyPixel\\Acorn\\Instagram\\Providers\\InstagramServiceProvider"
+      ]
+    }
   }
- ],
- "keywords": [
-  "wordpress",
-  "acorn",
-  "sage",
-  "instagram"
- ],
- "support": {
-  "issues": "https://github.com/pixelcollective/acorn-instagram/issues"
- },
- "autoload": {
-  "psr-4": {
-   "TinyPixel\\Acorn\\Instagram\\": "./src/"
-  }
- },
- "require": {
-  "php": ">=7.3",
-  "guzzlehttp/guzzle": "^6.3",
-  "raiym/instagram-php-scraper": "^0.9.1"
- },
- "extra": {
-  "acorn": {
-   "providers": [
-    "TinyPixel\\Acorn\\Instagram\\Providers\\InstagramServiceProvider"
-   ]
-  }
- }
 }

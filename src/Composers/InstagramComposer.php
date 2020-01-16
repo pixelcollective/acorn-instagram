@@ -7,7 +7,6 @@ use Illuminate\Support\Collection;
 use Roots\Acorn\Application;
 use Roots\Acorn\View\Composer;
 use InstagramScraper\Model\Account;
-use TinyPixel\Acorn\Instagram\Instagram as InstagramService;
 
 /**
  * Instagram Composer
@@ -18,6 +17,20 @@ use TinyPixel\Acorn\Instagram\Instagram as InstagramService;
 abstract class InstagramComposer extends Composer
 {
     /**
+     * Username
+     *
+     * @var string
+     */
+    public $username;
+
+    /**
+     * Password
+     *
+     * @var string
+     */
+    public $password;
+
+    /**
      * List of views served by this composer.
      *
      * @var array
@@ -25,14 +38,15 @@ abstract class InstagramComposer extends Composer
     protected static $views = ['index'];
 
     /**
-     * Resolves Instagram service.
-     * from the application container
+     * Resolves Instagram service from the application container.
      *
      * @param \Roots\Acorn\Application $app
      */
     public function __construct(Application $app)
     {
-        $this->instagram = $app[InstagramService::class];
+        $this->instagram = $app->make('instagram.authenticated');
+
+        $this->instagram->authenticate();
     }
 
     /**
@@ -56,7 +70,7 @@ abstract class InstagramComposer extends Composer
      *
      * @return Collection
      */
-    public function account() : Collection
+    public function account(): Collection
     {
         $account = $this->instagram->getAccount($this->account);
 
@@ -68,7 +82,7 @@ abstract class InstagramComposer extends Composer
      *
      * @return Collection
      */
-    public function media() : Collection
+    public function media(): Collection
     {
         $media = Collection::make($this->instagram->getMedias($this->account, $this->count));
 
@@ -81,7 +95,7 @@ abstract class InstagramComposer extends Composer
      * @param  Collection $account
      * @return Collection
      */
-    public function templateAccount(Account $account) : Collection
+    public function templateAccount(Account $account): Collection
     {
         return Collection::make([
             'username'        => $account->getUsername(),
@@ -103,11 +117,11 @@ abstract class InstagramComposer extends Composer
      * @param  Collection $media
      * @return Collection
      */
-    public function templateMedia(Collection $media) : Collection
+    public function templateMedia(Collection $media): Collection
     {
         $collected = Collection::make();
 
-        $media->each(function ($item) use (& $collected) {
+        $media->each(function ($item) use (&$collected) {
             $collected->push(Collection::make([
                 'id'        => $item->getId(),
                 'shortcode' => $item->getShortcode(),
@@ -126,7 +140,7 @@ abstract class InstagramComposer extends Composer
      * @param  string $text
      * @return string $linked
      */
-    public function linkHashtags(string $text) : string
+    public function linkHashtags(string $text): string
     {
         $this->collectHashtags(
             $linked = preg_replace(
@@ -153,11 +167,11 @@ abstract class InstagramComposer extends Composer
 
         $pattern = '/#<a href=".+instagram.+explore.+">\w*[a-zA-Z_]+\w*<\/a>/';
 
-        preg_match_all($pattern, $text,$hashtags);
+        preg_match_all($pattern, $text, $hashtags);
 
         Collection::make($hashtags)->each(function ($hashtag) {
-            if (! empty($hashtag[0])) {
-                if (! $this->collectedHashtags->contains($hashtag[0])) {
+            if (!empty($hashtag[0])) {
+                if (!$this->collectedHashtags->contains($hashtag[0])) {
                     $this->collectedHashtags->push($hashtag[0]);
                 }
             }
