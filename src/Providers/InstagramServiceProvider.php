@@ -24,8 +24,6 @@ class InstagramServiceProvider extends ServiceProvider
 
         $this->app->singleton('instagram.authenticated', function ($app) {
             $this->settings = $this->app['config']->get('services.instagram');
-            // Create an instance of an Illuminate's Store
-            // Wrap the Illuminate's store with the PSR-6 adapter
             $store = new ArrayStore();
             $pool  = new IlluminateCachePool($store);
 

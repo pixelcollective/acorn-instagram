@@ -23,10 +23,10 @@ class Instagram extends InstagramComposer
      * Data to be passed to view before rendering.
      *
      * @param  array $data
-     * @param  Illuminate\View $view
+     * @param  View $view
      * @return array
      */
-    public function with($data, $view)
+    public function with()
     {
         return [
             'profile'  => (object) $this->account()->toArray(),

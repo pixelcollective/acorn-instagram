@@ -44,23 +44,7 @@ abstract class InstagramComposer extends Composer
      */
     public function __construct(Application $app)
     {
-        $this->instagram = $app->make('instagram.authenticated');
-    }
-
-    /**
-     * Data to be passed to view before rendering.
-     *
-     * @param  array $data
-     * @param  View $view
-     * @return array
-     */
-    public function with()
-    {
-        return [
-            'profile'  => (object) $this->account()->toArray(),
-            'media'    => (object) $this->media()->toArray(),
-            'hashtags' => (object) $this->collectedHashtags->all(),
-        ];
+        $this->app = $app;
     }
 
     /**
