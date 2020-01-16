@@ -45,8 +45,6 @@ abstract class InstagramComposer extends Composer
     public function __construct(Application $app)
     {
         $this->instagram = $app->make('instagram.authenticated');
-
-        $this->instagram->authenticate();
     }
 
     /**
