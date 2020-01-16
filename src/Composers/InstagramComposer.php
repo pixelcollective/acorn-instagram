@@ -2,10 +2,11 @@
 
 namespace TinyPixel\Acorn\Instagram\Composers;
 
-use Carbon\Carbon;
 use Illuminate\Support\Collection;
+use Illuminate\Support\Facades\Cache;
 use Roots\Acorn\Application;
 use Roots\Acorn\View\Composer;
+use InstagramScraper\Instagram;
 use InstagramScraper\Model\Account;
 
 /**
@@ -16,20 +17,6 @@ use InstagramScraper\Model\Account;
  */
 abstract class InstagramComposer extends Composer
 {
-    /**
-     * Username
-     *
-     * @var string
-     */
-    public $username;
-
-    /**
-     * Password
-     *
-     * @var string
-     */
-    public $password;
-
     /**
      * List of views served by this composer.
      *
@@ -42,132 +29,46 @@ abstract class InstagramComposer extends Composer
      *
      * @param \Roots\Acorn\Application $app
      */
-    public function __construct(Application $app)
+    public function __construct(Application $app, Cache $cache)
     {
-        $this->app = $app;
+        $this->app       = $app;
+        $this->cache     = $cache;
+        $this->instagram = $this->instagram();
     }
 
     /**
-     * Instagram Account
+     * Instagram connection
      *
-     * @return Collection
+     * @return InstagramScraper\Instagram
      */
-    public function account(): Collection
+    public function instagram()
     {
-        $account = $this->instagram->getAccount($this->account);
+        $this->instagram = $this->cache::remember("instagram.{$this->acount}.connection", 86400, function () {
+            return $this->app->make('instagram.authenticated');
+        });
+    }
 
-        return $this->getAccount($account);
+    /**
+     * Instagram account
+     *
+     * @return InstagramScraper\Model\Account
+     */
+    public function account()
+    {
+        return $this->cache::remember("instagram.{$this->account}.account", 86400, function () {
+            return $this->instagram->getAccount($this->account);
+        });
     }
 
     /**
      * Instagram media
      *
-     * @return Collection
+     * @return \Illuminate\Support\Collection
      */
     public function media(): Collection
     {
-        $media = Collection::make($this->instagram->getMedias($this->account, $this->count));
-
-        return $this->getMedia($media);
-    }
-
-    /**
-     * Process account data.
-     *
-     * @param  Collection $account
-     * @return Collection
-     */
-    public function getAccount(Account $account): Collection
-    {
-        return Collection::make([
-            'username'        => $account->getUsername(),
-            'fullname'        => $account->getFullname(),
-            'profilePicUrl'   => $account->getProfilePicUrl(),
-            'profilePicHdUrl' => $account->getProfilePicUrlHd(),
-            'biographyUrl'    => $this->linkHashtags(nl2br($account->getBiography())),
-            'profileUrl'      => $account->getExternalUrl(),
-            'following'       => $account->getFollowsCount(),
-            'followedCount'   => $account->getFollowedByCount(),
-            'postCount'       => $account->getMediaCount(),
-            'category'        => $account->getBusinessCategoryName(),
-        ]);
-    }
-
-    /**
-     * Process media items.
-     *
-     * @param  Collection $media
-     * @return Collection
-     */
-    public function getMedia(Collection $media): Collection
-    {
-        $collected = Collection::make();
-
-        $media->each(function ($item) use (&$collected) {
-            $collected->push(Collection::make([
-                'id'        => $item->getId(),
-                'shortcode' => $item->getShortcode(),
-                'type'      => $item->getType(),
-                'caption'   => $this->linkHashtags(nl2br($item->getCaption())),
-                'imageUrl'  => $item->getImageHighResolutionUrl(),
-            ]));
+        return $this->cache::remember("instagram.{$this->account}.media", 86400, function () {
+            return $this->instagram->getMedias($this->account, $this->count);
         });
-
-        return $collected;
-    }
-
-    /**
-     * Link hashtags in a body of text
-     *
-     * @param  string $text
-     * @return string $linked
-     */
-    public function linkHashtags(string $text): string
-    {
-        $this->collectHashtags(
-            $linked = preg_replace(
-                '/#(\w*[a-zA-Z_]+\w*)/',
-                '#<a href="https://www.instagram.com/explore/tags/\1">\1</a>',
-                $text
-            )
-        );
-
-        return $linked;
-    }
-
-    /**
-     * Collect hashtags and store in aggregate
-     *
-     * @param  string $text
-     * @return void
-     */
-    public function collectHashtags(string $text)
-    {
-        if (!isset($this->collectedHashtags)) {
-            $this->collectedHashtags = Collection::make();
-        }
-
-        $pattern = '/#<a href=".+instagram.+explore.+">\w*[a-zA-Z_]+\w*<\/a>/';
-
-        preg_match_all($pattern, $text, $hashtags);
-
-        Collection::make($hashtags)->each(function ($hashtag) {
-            if (!empty($hashtag[0])) {
-                if (!$this->collectedHashtags->contains($hashtag[0])) {
-                    $this->collectedHashtags->push($hashtag[0]);
-                }
-            }
-        });
-    }
-
-    /**
-     * Returns human-readable time difference
-     *
-     * @param int $time
-     * @return string
-     */
-    public function timeSince(int $time)
-    {
-        return Carbon::createFromTimestamp($time)->diffForHumans();
     }
 }
