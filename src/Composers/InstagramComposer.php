@@ -74,7 +74,7 @@ abstract class InstagramComposer extends Composer
     {
         $account = $this->instagram->getAccount($this->account);
 
-        return $this->templateAccount($account);
+        return $this->getAccount($account);
     }
 
     /**
@@ -86,7 +86,7 @@ abstract class InstagramComposer extends Composer
     {
         $media = Collection::make($this->instagram->getMedias($this->account, $this->count));
 
-        return $this->templateMedia($media);
+        return $this->getMedia($media);
     }
 
     /**
@@ -95,7 +95,7 @@ abstract class InstagramComposer extends Composer
      * @param  Collection $account
      * @return Collection
      */
-    public function templateAccount(Account $account): Collection
+    public function getAccount(Account $account): Collection
     {
         return Collection::make([
             'username'        => $account->getUsername(),
@@ -117,7 +117,7 @@ abstract class InstagramComposer extends Composer
      * @param  Collection $media
      * @return Collection
      */
-    public function templateMedia(Collection $media): Collection
+    public function getMedia(Collection $media): Collection
     {
         $collected = Collection::make();
 
